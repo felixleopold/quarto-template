@@ -112,7 +112,7 @@ if [ "$SKIP_DEPENDENCIES" != "true" ]; then
     echo "  - Website: https://nodejs.org/"
     echo "Continuing installation, but Mermaid diagrams may not render correctly."
   fi
-}
+fi  # End of dependency checking
 
 # Function to handle download errors
 download_with_retry() {
