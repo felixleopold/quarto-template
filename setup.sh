@@ -270,10 +270,30 @@ fi
 if [ $verification_errors -eq 0 ]; then
   echo "✅ Template installation complete and verified!"
   echo
-  echo "To render the example document, run:"
-  echo "quarto render example.qmd"
+  echo "====== NEXT STEPS ======"
   echo
-  echo "For more information, see the README.md file."
+  echo "1. QUARTO ENVIRONMENT SETUP:"
+  echo "   • Ensure Quarto is installed: https://quarto.org/docs/get-started/"
+  echo "   • For best results, use a dedicated conda environment:"
+  echo
+  echo "     # Create a conda environment for Quarto projects"
+  echo "     conda create -n quarto python=3.10 jupyter matplotlib pandas numpy scipy"
+  echo "     conda activate quarto"
+  echo
+  echo "   • TIP: Create an activation shortcut in your .bashrc or .zshrc:"
+  echo "     alias q='conda activate quarto'"
+  echo
+  echo "2. RENDERING YOUR DOCUMENT:"
+  echo "   • Activate your environment first: conda activate quarto (or 'q' if set up)"
+  echo "   • Then render: quarto render example.qmd"
+  echo "   • For preview server: quarto preview example.qmd"
+  echo
+  echo "3. AVAILABLE FEATURES:"
+  echo "   • TikZ diagrams: Write LaTeX TikZ in {=latex} code blocks"
+  echo "   • Mermaid diagrams: Write in {mermaid} code blocks"
+  echo "   • Jupyter: Run Python code directly in the document"
+  echo
+  echo "For more details and examples, see the example.qmd file and README.md"
 else
   echo "⚠️ Template installation completed with $verification_errors verification issues."
   echo "Please check the output above for details."
