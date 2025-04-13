@@ -196,7 +196,8 @@ fi
 
 # Run the TikZ prerender extension installer
 echo "Initializing TikZ prerender extension..."
-./_extensions/tikz-prerender/install.sh
+# Make sure the extension installer uses the files in their current locations
+(cd _extensions/tikz-prerender && ./install.sh)
 
 # Create starter document if example.qmd doesn't exist
 if [ ! -f "example.qmd" ]; then

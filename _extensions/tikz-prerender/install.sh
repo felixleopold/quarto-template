@@ -7,21 +7,22 @@ echo "Installing tikz-prerender extension..."
 PROJECT_ROOT=$(dirname $(dirname $(dirname "$0")))
 echo "Project root: $PROJECT_ROOT"
 
-# Make sure the prerender script is executable
-if [ -f "$PROJECT_ROOT/prerender-tikz.sh" ]; then
-  chmod +x "$PROJECT_ROOT/prerender-tikz.sh"
+# Make sure the prerender script is executable (look in _customizations/tikz/)
+if [ -f "$PROJECT_ROOT/_customizations/tikz/prerender-tikz.sh" ]; then
+  chmod +x "$PROJECT_ROOT/_customizations/tikz/prerender-tikz.sh"
   echo "Made prerender-tikz.sh executable"
 else
-  echo "Warning: prerender-tikz.sh not found in project root"
+  echo "Warning: prerender-tikz.sh not found in _customizations/tikz/"
 fi
 
-# Copy the tikz-html.lua filter to the extension directory if needed
+# Use the tikz-html.lua filter from the extension directory
 if [ ! -f "tikz-html.lua" ]; then
-  if [ -f "$PROJECT_ROOT/tikz-html.lua" ]; then
-    cp "$PROJECT_ROOT/tikz-html.lua" .
-    echo "Copied tikz-html.lua to extension directory"
+  if [ -f "$PROJECT_ROOT/_extensions/tikz-prerender/tikz-html.lua" ]; then
+    # File is already in the extension directory, just refer to it
+    cp "$PROJECT_ROOT/_extensions/tikz-prerender/tikz-html.lua" .
+    echo "Using tikz-html.lua from extension directory"
   else
-    echo "Error: tikz-html.lua not found!"
+    echo "Error: tikz-html.lua not found in extension directory!"
     exit 1
   fi
 fi
