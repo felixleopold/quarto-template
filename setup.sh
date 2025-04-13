@@ -303,6 +303,8 @@ if [ $verification_errors -eq 0 ]; then
   echo "   • Jupyter: Run Python code directly in the document"
   echo
   echo "For more details and examples, see the example.qmd file and README.md"
+  echo
+  echo "To immediately test if it works, run 'quarto preview'"
 else
   echo "⚠️ Template installation completed with $verification_errors verification issues."
   echo "Please check the output above for details."
