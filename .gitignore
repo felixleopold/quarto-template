@@ -7,3 +7,5 @@ __pycache__/
 .env
 .venv
 node_modules/
+
+/.luarc.json
