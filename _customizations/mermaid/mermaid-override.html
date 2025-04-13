@@ -1,0 +1,270 @@
+<!-- Mermaid Gruvbox theme overrides -->
+<style>
+  /* Consistent styling for all diagram types */
+  svg[id^="mermaid-"] {
+    background-color: transparent !important;
+  }
+  
+  /* Consistent node styling across all diagram types */
+  svg[id^="mermaid-"] .node rect,
+  svg[id^="mermaid-"] .node circle,
+  svg[id^="mermaid-"] .node ellipse,
+  svg[id^="mermaid-"] .node polygon,
+  svg[id^="mermaid-"] .node path,
+  svg[id^="mermaid-"] .actor,
+  svg[id^="mermaid-"] .labelBox {
+    fill: #3c3836 !important;
+    stroke: #ebdbb2 !important;
+    stroke-width: 1px !important;
+  }
+  
+  /* Consistent text styling */
+  svg[id^="mermaid-"] .nodeLabel,
+  svg[id^="mermaid-"] .label,
+  svg[id^="mermaid-"] text,
+  svg[id^="mermaid-"] .actor tspan,
+  svg[id^="mermaid-"] .messageText {
+    color: #ebdbb2 !important;
+    fill: #ebdbb2 !important;
+    font-family: monospace !important;
+  }
+  
+  /* Consistent line styling */
+  svg[id^="mermaid-"] .edgePath .path,
+  svg[id^="mermaid-"] line, 
+  svg[id^="mermaid-"] path.path,
+  svg[id^="mermaid-"] marker path,
+  svg[id^="mermaid-"] .messageLine,
+  svg[id^="mermaid-"] .loopLine,
+  svg[id^="mermaid-"] .activationLine {
+    stroke: #ebdbb2 !important;
+    stroke-width: 1px !important;
+    fill: #ebdbb2 !important;
+  }
+  
+  /* Consistent edge/note styling */
+  svg[id^="mermaid-"] .note rect,
+  svg[id^="mermaid-"] .noteBox {
+    fill: #3c3836 !important;
+    stroke: #504945 !important;
+  }
+  
+  /* Edge label styling */
+  svg[id^="mermaid-"] .edgeLabel,
+  svg[id^="mermaid-"] .edgeLabel rect,
+  svg[id^="mermaid-"] .label foreignObject {
+    color: #ebdbb2 !important;
+    fill: #282828 !important;
+    background-color: #282828 !important;
+  }
+  
+  /* Fix for edge label paragraphs */
+  svg[id^="mermaid-"] .edgeLabel p,
+  .mermaid .edgeLabel p {
+    background-color: #282828 !important;
+    color: #ebdbb2 !important;
+  }
+  
+  /* Transparency for edge labels */
+  svg[id^="mermaid-"] .edgeLabel foreignObject {
+    background-color: transparent !important;
+  }
+  
+  /* Sequence diagram specific */
+  svg[id^="mermaid-"] .actor,
+  svg[id^="mermaid-"] .actorBox {
+    fill: #3c3836 !important;
+    stroke: #a89984 !important;
+  }
+  
+  svg[id^="mermaid-"] .actorText {
+    fill: #ebdbb2 !important;
+  }
+  
+  svg[id^="mermaid-"] .activation0,
+  svg[id^="mermaid-"] .activation1,
+  svg[id^="mermaid-"] .activation2 {
+    fill: #504945 !important;
+    stroke: #b8bb26 !important;
+  }
+  
+  /* Mermaid container styling to match TikZ diagrams exactly */
+  .mermaid-container {
+    padding: 1.5rem;
+    background-color: #282828 !important;
+    border: 1px solid #3c3836 !important;
+    border-radius: 6px;
+    margin: 2em 0;
+    display: block;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Remove immediate styling to prevent multiple borders */
+  /*
+  .cell-output-display div:has(pre.mermaid),
+  .cell-output-display div:has(div.mermaid),
+  .cell-output-display div:has(figure),
+  .cell div.cell-output-display {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin: 1rem auto 1.5rem auto;
+    background-color: var(--bs-body-bg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  */
+  
+  /* Cell output styling for mermaid without border */
+  .cell-output-display .mermaid {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Make sure the figure elements are properly centered */
+  .cell-output-display figure {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Match the TikZ container styling for SVG */
+  .mermaid-container svg {
+    max-width: 100%;
+    height: auto !important;
+    min-width: 200px; /* Ensure minimum width */
+  }
+</style>
+
+<script>
+// Add a MutationObserver to detect when Mermaid diagrams are rendered
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to wrap mermaid elements in a container
+  function wrapMermaidInContainer(element) {
+    // Find the closest figure or parent that should be wrapped
+    let targetElement = element;
+    
+    // If it's an SVG, find the parent figure if available
+    if (element.tagName === 'SVG') {
+      let figure = element.closest('figure');
+      if (figure) targetElement = figure;
+    }
+    
+    // If the element is already in a mermaid-container, don't wrap it again
+    if (targetElement.closest('.mermaid-container')) return;
+    
+    // If element is in a cell-output-display, wrap the entire output
+    let cellOutput = targetElement.closest('.cell-output-display');
+    if (cellOutput && !cellOutput.closest('.mermaid-container')) {
+      // Create the container
+      const container = document.createElement('div');
+      container.className = 'mermaid-container';
+      
+      // Insert container before the cell output and move cell output into it
+      cellOutput.parentNode.insertBefore(container, cellOutput);
+      container.appendChild(cellOutput);
+      return;
+    }
+    
+    // Otherwise wrap the target element directly
+    const container = document.createElement('div');
+    container.className = 'mermaid-container';
+    targetElement.parentNode.insertBefore(container, targetElement);
+    container.appendChild(targetElement);
+  }
+
+  // Function to apply styling to mermaid diagrams
+  function applyMermaidStyling() {
+    // Handle pre-rendered mermaid elements
+    const mermaidElements = document.querySelectorAll('pre.mermaid, div.mermaid');
+    mermaidElements.forEach(wrapMermaidInContainer);
+    
+    // Handle mermaid SVGs which replace the pre.mermaid elements after rendering
+    const mermaidSvgs = document.querySelectorAll('svg[id^="mermaid-"]');
+    mermaidSvgs.forEach(svg => {
+      // Apply consistent styling
+      const allTexts = svg.querySelectorAll('text');
+      allTexts.forEach(text => {
+        if (!text.getAttribute('fill') || text.getAttribute('fill') === 'black') {
+          text.setAttribute('fill', '#ebdbb2');
+        }
+      });
+      
+      // Ensure consistent size for all diagrams
+      svg.setAttribute('width', '100%');
+      
+      // Ensure the SVG is centered within its container
+      svg.style.display = 'block';
+      svg.style.margin = '0 auto';
+      
+      // Wrap the SVG in our container
+      wrapMermaidInContainer(svg);
+    });
+    
+    // Also look for cell outputs containing mermaid diagrams
+    const cellOutputs = document.querySelectorAll('.cell-output-display');
+    cellOutputs.forEach(output => {
+      if (output.querySelector('svg[id^="mermaid-"]') || 
+          output.querySelector('pre.mermaid') || 
+          output.querySelector('div.mermaid') ||
+          output.querySelector('figure')) {
+        // If this cell output contains mermaid and isn't already wrapped
+        if (!output.closest('.mermaid-container')) {
+          wrapMermaidInContainer(output);
+        }
+      }
+    });
+  }
+  
+  // Use a MutationObserver to detect when Mermaid diagrams are rendered
+  const observer = new MutationObserver(mutations => {
+    let shouldApplyStyling = false;
+    
+    for (let mutation of mutations) {
+      if (mutation.type === 'childList' && mutation.addedNodes.length) {
+        // Check for mermaid elements being added
+        const hasMermaid = Array.from(mutation.addedNodes).some(node => 
+          node.nodeType === 1 && (
+            (node.tagName === 'PRE' && node.classList.contains('mermaid')) ||
+            (node.tagName === 'DIV' && node.classList.contains('mermaid')) ||
+            (node.tagName === 'SVG' && node.id && node.id.startsWith('mermaid-')) ||
+            (node.querySelector && (
+              node.querySelector('pre.mermaid') || 
+              node.querySelector('div.mermaid') ||
+              node.querySelector('svg[id^="mermaid-"]') ||
+              node.classList.contains('cell-output-display')
+            ))
+          )
+        );
+        
+        if (hasMermaid) {
+          shouldApplyStyling = true;
+        }
+      }
+    }
+    
+    if (shouldApplyStyling) {
+      applyMermaidStyling();
+    }
+  });
+  
+  // Start observing
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  
+  // Apply styling at different intervals to catch all rendering phases
+  applyMermaidStyling(); // Apply immediately
+  
+  // Apply multiple times to catch diagrams rendered at different stages
+  const delays = [100, 500, 1000, 2000];
+  delays.forEach(delay => {
+    setTimeout(applyMermaidStyling, delay);
+  });
+});
+</script>

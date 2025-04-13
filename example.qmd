@@ -1,0 +1,446 @@
+---
+title: "Quarto Feature Showcase"
+author: "Felix Mrak"
+date: today
+---
+
+# Introduction
+
+This document showcases key features available in Quarto, including dynamic content, advanced layouts, LaTeX support, and Mermaid diagrams.
+
+:::{.callout-note}
+**Viewing the Source Code**
+
+To view the `.qmd` source code click on the `</> Code ▼` button in the top right corner of the page and select `View Source`.
+:::
+# Python Code Examples
+
+## Simple Plot
+
+```{python}
+#| code-fold: false
+#| fig-cap: "Sample Sine Wave"
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate some data
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.figure(figsize=(8, 4))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.title('Sine Wave')
+plt.xlabel('x')
+plt.ylabel('sin(x)')
+plt.grid(True)
+plt.show()
+
+max_y = np.max(y)
+```
+
+:::{.callout-note}
+**Adding Captions to Figures**
+
+Use `fig-cap` to add a caption to your figures.
+The caption location is determined by the `fig-cap-location` setting in the YAML frontmatter.
+:::
+
+
+:::{.callout-tip}
+**Collapsing Code Blocks**
+
+To make a code block collapsible, use the `code-fold` option.
+
+- `code-fold: true` collapses the code block by default.
+- `code-fold: show` displays the code block expanded but allows it to be collapsed.
+:::
+
+
+The maximum value in our sine wave is `{python} f"{max_y:.7f}"`.
+
+## Bar Chart
+
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Create data
+categories = ['A', 'B', 'C', 'D']
+values = [3, 7, 9, 4]
+
+plt.figure(figsize=(8, 4))
+plt.bar(categories, values, color='steelblue')
+plt.title('Simple Bar Chart')
+plt.xlabel('Category')
+plt.ylabel('Value')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+
+max_value = max(values)
+```
+
+:::{.callout-tip}
+**Displaying Code with Fenced Delimiters**
+
+To not display the code block but still show the output set `echo: false`.
+
+:::
+
+
+The maximum value in our bar chart is `{python} f"{max_value:.7f}"`.
+
+# Advanced Layouts
+
+## Tabsets and Inline Code
+
+*Note*: It is **not** possible to perform assignments in inline code.
+
+::: {.panel-tabset}
+
+### Tab 1: Definition
+
+In this tab we define a simple `User` class and import Markdown.
+
+```{python}
+#| code-fold: false
+from IPython.display import Markdown
+
+class User:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return f"Name = {self.name}, Age = {self.age}"
+```
+
+### Tab 2: Variables & Instance
+
+Next we assign values to our variables. Since inline code cannot perform assignments, these must be done in a full code chunk.
+
+```{python}
+#| code-fold: false
+#| code-line-numbers: false
+name = "Alice"
+age = 28
+```
+
+Using the `User` class and previously defined variables we create an instance of `User`.
+
+```{python}
+#| code-fold: false
+#| code-line-numbers: false
+user = User(name, age)
+```
+
+:::{.callout-note}
+**Adding Line Numbers to Code Blocks**
+
+To display line numbers alongside code blocks, set `code-line-numbers: true or false`.
+:::
+
+### Tab 3: Display
+
+Now we display the user instance by inserting inline Python expressions. 
+In this configuration the inline code using `'{python} user'` works correctly. You can also access object attributes inline.
+
+Here I am calling the `__str__` method with Markdown Bold: `{python} Markdown(f"**{user}**")`
+
+Accessing the user's `.age` inline: `{python} user.age`
+
+:::
+
+## Columns
+
+You could use this to display a graph for example with a description on the right side. 
+
+:::{.columns}
+
+:::{.column width="50%"}
+```{python}
+#| echo: false
+#| label: bar-chart
+import matplotlib.pyplot as plt
+
+# Data: Approximate populations (in millions) of some of the most populous metropolitan areas in the world
+cities = ['Tokyo', 'Delhi', 'Shanghai', 'São Paulo', 'Mexico City', 'Cairo', 'Mumbai']
+populations = [37.4, 31.0, 27.0, 22.0, 21.8, 20.5, 20.4]
+
+# Create a figure with a narrow width and portrait orientation: 3 inches wide and 6 inches tall
+plt.figure(figsize=(4, 4))
+
+# Plot a vertical bar chart
+plt.bar(cities, populations, color='coral')
+
+# Rotate x‑axis labels to vertical to better fit the narrow width
+plt.xticks(rotation=90)
+
+# Label the axes and title the graph
+plt.xlabel("City")
+plt.ylabel("Population (millions)")
+
+# Optionally, add a text label on top of each bar for clarity
+for i, pop in enumerate(populations):
+    plt.text(i, pop + 0.5, str(pop), ha='center', va='bottom', rotation=90)
+
+# Display the graph
+plt.tight_layout()
+plt.show()
+```
+:::
+
+
+:::{.column width="50%"}
+<br><br><br>
+This bar chart illustrates the populations of the world's top 7 most populous metropolitan areas, using approximate data measured in millions.
+
+- Each bar represents a city, and its height reflects the city's population, making comparisons straightforward.  
+- **Tokyo**, with an estimated population of about *37.4 million*, stands out as the largest city on the chart.  
+- The portrait orientation of the graph effectively highlights population differences, allowing viewers to easily distinguish the leading metropolitan areas from those with smaller populations.  
+
+This format ensures clarity and provides a quick visual understanding of population rankings.
+:::
+
+## Callouts
+
+::::{.columns}
+
+::::{.column width="50%"}
+
+:::{.callout-note}
+**Customizing Code Block Summary**
+
+You can customize the summary text of a collapsible code block using `code-summary`.
+
+
+```{python}
+#| code-fold: true
+#| code-summary: "Click to view the code"
+print("This code block has a custom summary.")
+```
+
+:::
+
+::::
+::::{.column width="50%"}
+
+:::{.callout-tip}
+**Preventing Code Execution**
+
+To display code without executing it, set `eval: false`.
+
+
+```{python}
+#| code-fold: false
+#| eval: false
+print("This code is displayed but not executed.")
+```
+:::
+
+::::
+
+::::{.columns}
+
+::::{.column width="50%"}
+
+:::{.callout-important}
+**Handling Code Output**
+
+The `output` option controls the inclusion of code output.
+
+- `output: true` includes the output.
+- `output: false` excludes the output.
+- `output: asis` treats the output as raw markdown.
+
+
+```{python}
+#| code-fold: false
+#| output: asis
+print("#### This is a level 4 heading")
+```
+:::
+
+::::
+::::{.column width="50%"}
+
+:::{.callout-warning}
+**Suppressing Warnings and Errors**
+
+Use the `warning` and `error` options to control the display of warnings and errors.
+
+- `warning: false` suppresses warnings.
+- `error: true` includes errors in the output without halting the rendering process.
+
+I will not demonstrate this because it is ugly!
+:::
+
+::::
+
+::::{.columns}
+
+::::{.column width="50%"}
+
+:::{.callout-note}
+**Managing Code Overflow**
+
+To handle long lines of code that exceed the horizontal space, use the `code-overflow` option.
+
+- `code-overflow: scroll` adds a horizontal scrollbar.
+- `code-overflow: wrap` wraps the overflowing lines.
+
+
+```{python}
+#| code-overflow: wrap
+text = "This is a very very very long line of code that I need to make even longer to test if it will wrap instead of scrolling horizontally in the output."
+```
+:::
+
+::::
+
+::::{.column width="50%"}
+
+:::{.callout-important}
+**Displaying Code with Fenced Delimiters**
+
+To display code blocks with their fenced delimiters set `echo: fenced`.
+
+
+```{python}
+#| code-fold: false
+#| echo: fenced
+print("This code block is displayed with its fenced delimiters.")
+```
+:::
+
+::::
+
+:::{.callout-tip}
+**Including Non-Executable Code Blocks**
+
+To include code in your document that is not executed, use `double curly braces` in the code block declaration.
+
+
+```{{python}}
+#| code-fold: false
+print("This code is displayed but not executed.")
+```
+
+:::
+
+
+
+# LaTeX and Mathematical Expressions
+
+You can display LaTeX equations inline with `$ LaTeX $` or in a separate block using `$$` like in Obsidian.
+
+## Inline Equations
+
+Einstein's famous *(inline)* equation: $E = mc^2$
+
+Here is another *(inline)* formula: $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+
+Now for a more complex equation you might want to display in a separate block:
+
+$$
+\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i x \xi} \, dx
+$$
+
+
+## Display Equations with `aligned`
+
+$$
+\begin{aligned}
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\
+\nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
+\nabla \cdot \vec{\mathbf{B}} & = 0
+\end{aligned}
+$$
+
+# Mermaid Diagrams
+
+Quyarto supports Mermaid diagrams. You can use them to create flowcharts, sequence diagrams, and more.
+
+## Flowchart Example
+
+```{mermaid}
+flowchart TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]
+    D --> B
+    C --> E[End]
+```
+
+## Sequence Diagram
+
+```{mermaid}
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+    
+    Client->>Server: Request Data
+    Server->>Database: Query
+    Database->>Server: Return Results
+    Server->>Client: Response
+```
+
+# Inline Code for Dynamic Content
+
+```{python}
+#| include: false
+from datetime import datetime
+```
+
+The current date is `{python} Markdown(f"**{datetime.now().strftime('%Y-%m-%d')}**")` 
+
+This works by importing the `datetime` module in a hidden code chunk above.
+
+:::{.callout-tip}
+**Excluding Code and Output**
+
+To exclude both the code and its output from the final document, use `include: false`.
+You could use this to hide code that is not needed in the final document but needs to be included in the source code.
+
+:::
+
+# Cross-Referencing and Obsidian Links
+
+## Internal Links
+
+You can link to sections within the document [(Introduction)](#introduction) using Markdown syntax.
+
+## Obsidian Links
+
+You can create links to *Obsidian* notes using the Obsidian URI format:
+This of course only works if you have the Obsidian app installed and the `Vaultname` and `Filename` are correct.
+
+:::{.callout-tip}
+
+You can copy the obsidian url by right clicking on the note in the Obsidian app and selecting Copy Obsidian URL.
+To add a link to a specific heading, add a # and the heading name (with spaces replaced by %20).
+
+:::
+
+
+[Link to a Note](obsidian://open?vault=MyBrain&file=02%20-%20Areas%2FWisdom%2FClothing)
+
+
+[Link to specific heading](obsidian://open?vault=MyBrain&file=02%20-%20Areas%2FWisdom%2FClothing#My%20Measurements)
+
+
+# Tables and Figures
+
+## Markdown Tables
+
+| Feature | Description | Supported Formats |
+|---------|-------------|-------------------|
+| Dynamic Content | Execute code and include results | Python, R, Julia, Observable |
+| Interactivity | Add interactive elements | Widgets, Plotly, Shiny |
+| LaTeX | Mathematical typesetting | All formats |
+| Mermaid | Diagram creation | HTML, PDF |
+| Cross-referencing | Internal document links | All formats |
+
+

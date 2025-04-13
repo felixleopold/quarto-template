@@ -1,0 +1,416 @@
+/* Base styling for page elements */
+pre, code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  border-radius: 4px;
+}
+
+pre {
+  background-color: #282828 !important;
+  border: 1px solid #3c3836 !important;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+pre::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Inline code styling */
+:not(pre) > code {
+  background-color: #282828 !important;
+  padding: 2px 4px !important;
+  font-size: 0.9em !important;
+  border: 1px solid #3c3836 !important;
+  color: #ebdbb2 !important;
+  white-space: nowrap !important;
+}
+
+/* Hidden scrollbar code blocks */
+div.sourceCode {
+  overflow-x: auto !important;  /* Allow horizontal scrolling */
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+div.sourceCode::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Keep pre as no-wrap to preserve formatting */
+.sourceCode pre {
+  white-space: pre !important;  /* No wrapping */
+}
+
+/* Style the code fold button */
+.code-fold-btn-container {
+  margin-bottom: 0.5em;
+}
+
+details.code-fold summary {
+  background-color: var(--bs-body-bg);
+  opacity: 0.8;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--bs-body-color);
+}
+
+details.code-fold summary:hover {
+  opacity: 1;
+}
+
+/* Base code styling */
+code {
+  color: #ebdbb2 !important;
+}
+
+/* Gruvbox theme colors - exact match with VSCode theme */
+:root {
+  --gruvbox-bg: #282828;
+  --gruvbox-fg: #ebdbb2;
+  --gruvbox-red: #fb4934;
+  --gruvbox-green: #b8bb26;
+  --gruvbox-yellow: #fabd2f;
+  --gruvbox-blue: #83a598;
+  --gruvbox-purple: #d3869b;
+  --gruvbox-aqua: #8ec07c;
+  --gruvbox-orange: #fe8019;
+  --gruvbox-gray: #928374;
+  --gruvbox-border: #3c3836;
+}
+
+:root {
+  --obsidian-purple: #5f33b6;
+}
+
+/* Line numbers in gray like comments */
+.sourceCode a {
+  color: var(--gruvbox-gray) !important;
+  text-decoration: none !important;
+}
+
+/* Base Python syntax highlighting */
+
+/* Keywords (class, def, import, etc.) */
+code span.kw, 
+code span.cf,
+code span.im {
+  color: var(--gruvbox-red) !important;
+  font-weight: bold;
+}
+
+/* Function names */
+code span.fu {
+  color: var(--gruvbox-aqua) !important;
+}
+
+/* Strings */
+code span.st {
+  color: var(--gruvbox-green) !important;
+}
+
+/* Comments */
+code span.co {
+  color: var(--gruvbox-gray) !important;
+  font-style: italic;
+}
+
+/* Constants and special values */
+code span.va {
+  color: var(--gruvbox-blue) !important; /* Variables are blue */
+}
+
+/* Type hints and built-in types */
+code span.bu {
+  color: var(--gruvbox-yellow) !important; /* Type hints are yellow */
+}
+
+/* Numbers */
+code span.dv, 
+code span.fl {
+  color: var(--gruvbox-purple) !important;
+}
+
+/* Operators and parentheses */
+code span.op {
+  color: var(--gruvbox-purple) !important; /* All parentheses are purple */
+}
+
+/* Error types - enforced in JavaScript */
+code span.er {
+  color: var(--gruvbox-yellow) !important; /* Error types are yellow */
+}
+
+/* Special styling for None, True, False */
+code span.va.bool-value {
+  color: var(--gruvbox-purple) !important; /* Booleans are purple */
+}
+
+/* Special styling for self and cls */
+code span.va.self-ref {
+  color: var(--gruvbox-blue) !important; /* self and cls are blue */
+}
+
+/* TikZ diagram styles */
+.tikz-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  padding: 0.75rem;
+}
+
+.tikz-figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  transition: transform 0.2s ease-in-out;
+  background-color: white !important;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  border: 1px solid #d5c4a1;  /* Light gruvbox color for subtle border */
+}
+
+/* Background container for TikZ diagrams */
+.tikz-container {
+  padding: 1.5rem;
+  background-color: #282828 !important;
+  border: 1px solid #3c3836 !important;
+  border-radius: 6px;
+  margin: 2em 0;
+  display: block;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Responsive styling for TikZ diagrams */
+@media (max-width: 768px) {
+  .tikz-container {
+    padding: 1rem;
+  }
+  
+  .tikz-figure img {
+    max-width: 100%;
+  }
+}
+
+/* Allow zoom on hover for TikZ diagrams */
+/* .tikz-figure img:hover {
+  transform: scale(1.02);
+} */
+
+/* Caption styling for TikZ figures */
+.tikz-figure figcaption,
+.tikz-figure p em {
+  font-size: 0.9em;
+  color: var(--gruvbox-gray);
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+  display: inline-block;
+}
+
+/* Error styling for TikZ figures */
+.tikz-error {
+  border: 1px solid var(--gruvbox-red) !important; 
+  padding: 1.5rem; 
+  background-color: #282828 !important;
+  border-radius: 6px;
+  margin: 2em 0;
+  text-align: center;
+  display: block;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tikz-error strong {
+  display: inline-block;
+  background-color: white;
+  color: var(--gruvbox-red);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--gruvbox-red);
+}
+
+/* Improve code blocks rendering */
+.cell {
+  margin-bottom: 1em;
+}
+
+.cell-output {
+  padding-left: 0.5em;
+  background-color: rgba(40, 40, 40, 0.3);
+  border-radius: 4px;
+}
+
+/* Add a subtle background for code blocks */
+.cell-output pre {
+  background-color: rgba(60, 56, 54, 0.3) !important;
+  border: 1px solid #3c3836 !important;
+}
+
+/* For rendering Obsidian-style links if supported */
+.internal-link, a[href^="obsidian://"] {
+  color: var(--obsidian-purple) !important;
+  text-decoration: none;
+  border-bottom: 1px solid var(--obsidian-purple);
+  display: inline-block;
+}
+
+.internal-link:hover, a[href^="obsidian://"]:hover {
+  color: var(--obsidian-purple) !important;
+  border-bottom: 1px solid var(--obsidian-purple);
+  opacity: 0.8;
+}
+
+/* Styling for Obsidian links */
+a[href^="obsidian://"]::after {
+  content: "⋯";
+  font-size: 80%;
+  vertical-align: super;
+  opacity: 0.7;
+  margin-left: 2px;
+}
+
+/* Hide backticks after Obsidian links */
+a[href^="obsidian://"] + code:empty {
+  display: none !important;
+}
+
+/* Tooltip on hover */
+a[href^="obsidian://"]::before {
+  content: "Open in Obsidian";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background-color: #333;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+a[href^="obsidian://"]:hover::before {
+  opacity: 0.9;
+}
+
+a[href^="obsidian://"] {
+  position: relative;
+}
+
+/* Add consistent styling for mermaid diagrams to match code blocks and tikz diagrams */
+.mermaid {
+    background-color: var(--bs-body-bg);
+    font-family: monospace;
+}
+
+/* Match styling exactly with TikZ containers */
+.mermaid-container {
+    padding: 1.5rem;
+    background-color: #282828 !important;
+    border: 1px solid #3c3836 !important;
+    border-radius: 6px;
+    margin: 2em 0;
+    display: block;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.mermaid svg {
+    max-width: 100%;
+}
+
+/* Remove direct styling on cell-output-display to avoid multiple borders */
+.cell-output-display {
+    margin: 1rem 0;
+}
+
+/* Center the diagrams without adding borders */
+.cell-output-display .mermaid,
+.cell-output-display figure {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Make sure mermaid diagrams are centered and have proper size */
+.cell-output-display .figure div,
+.cell-output-display .figure pre.mermaid {
+    width: 100%;
+    text-align: center;
+}
+
+/* Center SVG when rendered */
+svg[id^="mermaid-"] {
+    display: block;
+    margin: 0 auto;
+    min-width: 200px; /* Ensure minimum width for consistency */
+}
+
+/* Center figure and caption */
+.quarto-figure {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.figure {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+figcaption {
+  order: 2 !important;
+  text-align: center !important;
+  margin-top: 0.5em !important;
+  font-style: italic !important;
+  width: 100% !important;
+}
+
+/* Center table captions */
+.table-caption {
+  text-align: center !important;
+  width: 100% !important;
+  display: block !important;
+  margin-bottom: 0.5em !important;
+  font-style: italic !important;
+} 
+
+/* Column spacing */
+.panel-tabset > .tab-content {
+  padding: 1em 0;
+}
+
+.panel-tabset > .nav-tabs {
+  margin-bottom: 1em;
+}
+
+.quarto-layout-panel {
+  gap: 2em !important;
+}
+
+.quarto-layout-row {
+  gap: 2em !important;
+}
+
+.quarto-layout-cell {
+  padding: 0 !important;
+}

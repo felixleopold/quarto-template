@@ -1,0 +1,27 @@
+# Example configuration for the tikz-prerender extension
+# Copy these settings to your _quarto.yml
+
+project:
+  type: website
+  resources:
+    - _tikz  # Make sure the output directory is included as a resource
+
+format:
+  html:
+    # Add the extension filter
+    filters:
+      - _extensions/tikz-prerender/prerender-hook.lua
+    
+    # Optionally add custom CSS for TikZ figures
+    css:
+      - styles.css
+      
+# Global default for tikz_prerender (can be overridden in individual documents)
+tikz_prerender: true
+
+# You can also specify document-specific settings
+# For example:
+# 
+# execute:
+#   echo: true
+#   freeze: auto 

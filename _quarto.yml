@@ -1,0 +1,165 @@
+project:
+  type: website
+  output-dir: _output
+  resources:
+    - _customizations/mermaid/mermaid-override.html
+    - _tikz
+    - _customizations/syntax/_highlight
+  render:
+    - "*.qmd"
+
+website:
+  sidebar:
+    style: "floating"
+    search: false
+    contents:
+      - example.qmd
+
+format:
+  html:
+    theme: darkly
+    css: 
+      - _customizations/syntax/custom.css
+    code-fold: true
+    code-tools: true
+    toc: true
+    self-contained: true
+    fig-cap-location: bottom
+    fig-align: center
+    grid:
+      body-width: 1000px
+    highlight-style: 
+      light: _customizations/syntax/_highlight/gruvbox-light.theme
+      dark: _customizations/syntax/_highlight/gruvbox-dark.theme
+    html-math-method: mathjax
+    include-in-header:
+      - text: |
+          <script src="_customizations/syntax/syntax-enhance.js" defer></script>
+    include-after-body: 
+      - _customizations/mermaid/mermaid-override.html
+    filters:
+      - _extensions/syntax-enhance/syntax-enhance.lua
+      - _extensions/tikz-prerender/prerender-hook.lua
+      - _extensions/tikz-prerender/tikz-html.lua
+    code-copy: true
+    code-line-numbers: true
+    mermaid:
+      theme: dark
+      fontFamily: 'monospace'
+      # Custom Gruvbox dark theme colors
+      themeVariables:
+        primaryColor: "#fb4934"       # red - for primary nodes
+        primaryTextColor: "#ebdbb2"   # fg0 - text in primary nodes
+        primaryBorderColor: "#fb4934" # red - borders for primary nodes
+        secondaryColor: "#83a598"     # blue - for secondary nodes
+        secondaryTextColor: "#ebdbb2" # fg0 - text in secondary nodes
+        secondaryBorderColor: "#83a598" # blue - borders for secondary nodes
+        tertiaryColor: "#fabd2f"      # yellow - for tertiary nodes
+        tertiaryTextColor: "#282828"  # bg0 - text in tertiary nodes (dark for contrast)
+        tertiaryBorderColor: "#fabd2f" # yellow - borders for tertiary nodes
+        noteBkgColor: "#3c3836"       # bg1 - note background
+        noteTextColor: "#ebdbb2"      # fg0 - note text
+        noteBorderColor: "#504945"    # bg2 - note border
+        lineColor: "#a89984"          # fg4 - for lines/edges
+        textColor: "#ebdbb2"          # fg0 - general text
+        mainBkg: "#282828"            # bg0 - main background
+        nodeBorder: "#504945"         # bg2 - node borders
+        edgeLabelBackground: "#282828" # bg0 - edge label background
+        clusterBkg: "#32302f"         # bg0_h - cluster background
+        clusterBorder: "#504945"      # bg2 - cluster border
+        titleColor: "#d3869b"         # purple - title text
+        actorBkg: "#3c3836"           # bg1 - actor background (sequence diagrams)
+        actorBorder: "#a89984"        # fg4 - actor border
+        actorTextColor: "#ebdbb2"     # fg0 - actor text
+        actorLineColor: "#a89984"     # fg4 - actor line
+        signalColor: "#ebdbb2"        # fg0 - signal lines
+        signalTextColor: "#ebdbb2"    # fg0 - signal text
+        labelBoxBkgColor: "#3c3836"   # bg1 - label box background
+        labelBoxBorderColor: "#504945" # bg2 - label box border
+        labelTextColor: "#ebdbb2"     # fg0 - label text
+        loopTextColor: "#ebdbb2"      # fg0 - loop text
+        activationBorderColor: "#b8bb26" # green - activation border
+        activationBkgColor: "#3c3836" # bg1 - activation background
+        sequenceNumberColor: "#282828" # bg0 - sequence number
+    
+  pdf:
+    documentclass: article
+    papersize: letter
+    geometry:
+      - margin=1in
+    code-line-numbers: true
+    highlight-style: github
+    fig-cap-location: bottom
+    fig-align: center
+    include-in-header: 
+      text: |
+        \usepackage{tikz}
+        \usepackage{pgfplots}
+        \pgfplotsset{compat=newest}
+        \usetikzlibrary{arrows,shapes,positioning,calc,fit,backgrounds,decorations.pathreplacing,calligraphy}
+        \providecommand{\tightlist}{%
+          \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+        % Center figure captions
+        \usepackage{caption}
+        \captionsetup[figure]{justification=centering}
+        \captionsetup[table]{justification=centering}
+    template: _customizations/templates/template.tex
+    mermaid:
+      theme: neutral
+      fontFamily: 'sans-serif'
+      config:
+        background: 'transparent'
+      # Custom Gruvbox light theme colors
+      themeVariables:
+        # Common elements
+        mainBkg: "#fbf1c7"            # bg0 - main background
+        textColor: "#3c3836"          # fg0 - general text
+        
+        # Node styling - consistent across diagram types
+        primaryColor: "#9d0006"       # red - for primary nodes
+        primaryTextColor: "#3c3836"   # fg0 - text in primary nodes
+        primaryBorderColor: "#9d0006" # red - borders for primary nodes
+        secondaryColor: "#458588"     # blue - for secondary nodes
+        secondaryTextColor: "#3c3836" # fg0 - text in secondary nodes
+        secondaryBorderColor: "#458588" # blue - borders for secondary nodes
+        tertiaryColor: "#d79921"      # yellow - for tertiary nodes
+        tertiaryTextColor: "#3c3836"  # fg0 - text in tertiary nodes
+        tertiaryBorderColor: "#d79921" # yellow - borders for tertiary nodes
+        
+        # Note styling
+        noteBkgColor: "#fbf1c7"       # bg0 - note background
+        noteTextColor: "#3c3836"      # fg0 - note text
+        noteBorderColor: "#d5c4a1"    # bg3 - note border
+        
+        # Line and edge styling
+        lineColor: "#7c6f64"          # gray - for lines/edges
+        nodeBorder: "#d5c4a1"         # bg3 - node borders
+        edgeLabelBackground: "#fbf1c7" # bg0 - edge label background
+        
+        # Cluster styling
+        clusterBkg: "#ebdbb2"         # bg1 - cluster background
+        clusterBorder: "#d5c4a1"      # bg3 - cluster border
+        
+        # Title and labels
+        titleColor: "#b16286"         # purple - title text
+        labelBackgroundColor: "#ebdbb2" # bg1 - label background
+        
+        # Sequence diagram specific
+        actorBkg: "#fbf1c7"           # bg0 - actor background
+        actorBorder: "#7c6f64"        # gray - actor border
+        actorTextColor: "#3c3836"     # fg0 - actor text
+        actorLineColor: "#7c6f64"     # gray - actor line
+        signalColor: "#7c6f64"        # gray - signal lines
+        signalTextColor: "#3c3836"    # fg0 - signal text
+        loopTextColor: "#3c3836"      # fg0 - loop text
+        activationBorderColor: "#98971a" # green - activation border
+        activationBkgColor: "#ebdbb2" # bg1 - activation background
+        sequenceNumberColor: "#3c3836" # fg0 - sequence number
+
+
+jupyter: python3
+
+execute:
+  echo: true
+  warning: true
+  error: true 
