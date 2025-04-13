@@ -86,7 +86,7 @@ if [ "$SKIP_DEPENDENCIES" != "true" ]; then
   # Check for LaTeX/pdflatex (needed for TikZ)
   if ! command -v pdflatex &> /dev/null; then
     echo "Warning: pdflatex not found. You'll need LaTeX for TikZ diagrams."
-    echo "  - Homebrew: brew install --cask mactex"
+    echo "  - Homebrew: brew install --cask mactex-no-gui"
     echo "  - Conda: conda install -c conda-forge texlive-core"
     echo "  - Apt: sudo apt-get install texlive"
     echo "  - Alternatively, install TeX Live or MiKTeX"
@@ -274,22 +274,31 @@ if [ $verification_errors -eq 0 ]; then
   echo
   echo "1. QUARTO ENVIRONMENT SETUP:"
   echo "   • Ensure Quarto is installed: https://quarto.org/docs/get-started/"
+  echo "     'brew install --cask quarto'"
+  echo
+  echo "   • Required dependencies:"
+  echo "     - LaTeX/pdflatex (for TikZ): 'brew install --cask mactex-no-gui'"
+  echo "       conda: 'conda install -c conda-forge texlive-core texlive-latex-extra'"
+  echo "     - ImageMagick (for image conversion): 'brew install imagemagick'"
+  echo "       conda: 'conda install -c conda-forge imagemagick'"
+  echo "     - Node.js/npm (for Mermaid): 'brew install node'"
+  echo "       conda: 'conda install -c conda-forge nodejs'"
+  echo
   echo "   • For best results, use a dedicated conda environment:"
   echo
   echo "     # Create a conda environment for Quarto projects"
-  echo "     conda create -n quarto python=3.10 jupyter matplotlib pandas numpy scipy"
-  echo "     conda activate quarto"
-  echo
-  echo "   • TIP: Create an activation shortcut in your .bashrc or .zshrc:"
-  echo "     alias q='conda activate quarto'"
+  echo "     'conda create -n quarto python=3.10 jupyter matplotlib pandas numpy scipy'"
+  echo "     'conda activate quarto'"
+  echo "     'conda install -c conda-forge texlive-core imagemagick nodejs jupyter-book r-base'"
   echo
   echo "2. RENDERING YOUR DOCUMENT:"
-  echo "   • Activate your environment first: conda activate quarto (or 'q' if set up)"
-  echo "   • Then render: quarto render example.qmd"
-  echo "   • For preview server: quarto preview example.qmd"
+  echo "   • Activate your environment first: 'conda activate quarto'"
+  echo "   • Then render: 'quarto render example.qmd'"
+  echo "   • For preview server: 'quarto preview example.qmd'"
   echo
   echo "3. AVAILABLE FEATURES:"
   echo "   • TikZ diagrams: Write LaTeX TikZ in {=latex} code blocks"
+  echo "   • Python code: Write Python code in {python} code blocks"
   echo "   • Mermaid diagrams: Write in {mermaid} code blocks"
   echo "   • Jupyter: Run Python code directly in the document"
   echo
