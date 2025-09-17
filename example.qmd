@@ -6,7 +6,7 @@ date: today
 
 # Introduction
 
-This document showcases key features available in Quarto, including dynamic content, advanced layouts, LaTeX support, and Mermaid diagrams.
+This document showcases key features available in my custom Quarto template, including dynamic content, advanced layouts, LaTeX support, and Mermaid diagrams.
 
 :::{.callout-note}
 **Viewing the Source Code**
@@ -89,6 +89,28 @@ To not display the code block but still show the output set `echo: false`.
 
 
 The maximum value in our bar chart is `{python} f"{max_value:.7f}"`.
+
+# R Code Example
+
+You can also include R code in your documents. Below we show an R example. It is displayed but not executed in this Python-based document. To run R code, render with an R engine (knitr) or switch the project/kernel to R.
+
+````markdown
+```{{r}}
+#| code-fold: true
+#| code-summary: "Show R example"
+#| fig-cap: "Sepal length by species (ggplot2)"
+
+library(ggplot2)
+
+# Use the built-in iris dataset
+data(iris)
+
+ggplot(iris, aes(Species, Sepal.Length, fill = Species)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+````
 
 # Advanced Layouts
 

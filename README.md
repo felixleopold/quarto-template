@@ -1,6 +1,6 @@
 # Quarto TikZ and Mermaid Template
 
-A ready-to-use Quarto template with beautiful Gruvbox-themed TikZ diagrams, Mermaid charts, and enhanced syntax highlighting.
+A ready-to-use Quarto template with Gruvbox-themed TikZ diagrams, Mermaid charts, and enhanced syntax highlighting.
 
 ## Features
 
@@ -10,21 +10,7 @@ A ready-to-use Quarto template with beautiful Gruvbox-themed TikZ diagrams, Merm
   - Gruvbox-themed syntax highlighting for code
   - Rainbow parentheses/brackets for better readability
   - Special styling for Python error types and constants
-- **Consistent styling**: Same visual appearance across HTML and PDF outputs
-
-## Quick Start
-
-One-line installation:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/felixleopold/quarto-template/main/setup.sh | bash
-```
-
-Or specify a directory:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/felixleopold/quarto-template/main/setup.sh | bash -s -- -d my-project
-```
+- **Consistent styling**: Somewhat similar appearance across HTML and PDF outputs
 
 ## Installation Options
 
@@ -143,6 +129,3 @@ flowchart LR
 - **TikZ Libraries**: Add additional libraries in `_customizations/tikz/prerender-tikz.sh`
 - **Syntax Highlighting**: Modify `_customizations/syntax/syntax-enhance.js` for code styling
 
-## License
-
-MIT 
